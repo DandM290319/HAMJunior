@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<style>
+		html{
+			height: 100%;
+		}
+		@font-face{
+			src:url(18473.ttf);
+			font-family: my-font;
+		}
+		body{
+			font-family: my-font;
+			color: white;
+			height: 100%;
+		}
+		/*главная*/
+		.school{
+			position: absolute;
+			top:20%;
+			left: 70%
+		}
+		.mastery{
+			top:60%;
+			position: absolute;
+			left:40%;
+		}
+		.main_player{
+			position: absolute;
+			top:50%;
+			left: 50%;
+			transition:  0.8s;
+		}
+		.arena{
+			position: absolute;
+			top:20%;
+			left: 30%;
+		}
+		/*3 локация*/
+		.loc3_hp{
+			height: 40px;
+			
+			
+		}
+		.loc3_enemy{
+			position: absolute;
+			top:60%;
+			left: 35%
+
+		}
+		.loc3_player{
+			position: absolute;
+			top:60%;
+			left: 55%;
+			display: flex;
+		}
+		.loc3_sword{
+			
+			width: 80px;
+		}
+		.loc3_hit{
+			
+			width: 50px;
+			
+		}
+
+		/*2 локация*/
+		.loc2_teacher {
+			height: 100px;
+			width: 80px;
+			margin-left: 50%; 
+			position: absolute; 
+			margin-top: 8%;
+		}
+		.loc2_talk {
+			position: absolute;
+			width: 300px;
+			margin-left: 56%;
+			display: none;
+		}
+
+		.loc2_pravilno{
+			background-color: gray; width: 100px; position: absolute; display: block;
+		}
+
+		.loc2_player {
+			margin-left: 28%; margin-top: 26%; position: absolute;
+		}
+
+		.loc2_shpors {
+			background-color: gray; width: 100px; position: absolute;
+		}
+
+		.loc2_talkText {
+			position: absolute;
+			width: 200px;
+			margin-left: 59%;
+			margin-top: 3%;
+			display: none;
+			color: black;
+		}
+		.loc2_timeSize {
+			font-size: 30px;
+		}
+		.loc2_pole {
+			margin-top: 25%;
+			position: absolute;
+		}
+		/*1 локация*/
+		.loc1_kuznec {
+			height: 110px;
+			width: 80px;
+			position: absolute;
+			left: 35%;
+			top: 70%;
+			background-image: url(loc1/kuznec.png);
+			background-size: 100% 100%;
+		}
+		/* плеер */
+		.loc1_player {
+			height: 110px;
+			width: 80px;
+			position: absolute;
+			left: 45%;
+			top: 70%;
+			background-image: url(loc1/player.png);
+			background-size: 100% 100%;
+		}
+		/* наковальня */
+		.loc1_nakovalya {
+			height: 60px;
+			width: 100px;
+			position: absolute;
+			left: 55%;
+			top: 75%;
+			background-image: url(loc1/nakovalya.png);
+			background-size: 100% 100%;
+		}
+		/* меч */
+		.loc1_mech {
+			height: 100px;
+			width: 60px;
+			position: absolute;
+			left: 48%;
+			top: 70%;
+			background-image: url(loc1/mech.png);
+			background-size: 100% 100%;
+		}
+		/* сообщение */
+		.loc1_message {
+			display: none;
+			height: 250px;
+			width: 250px;
+			position: absolute;
+			left: 37%;
+			top: 50%;
+			background-image: url(loc1/talk.png);
+			background-size: 100% 100%;
+		}
+		.loc1_message_text {
+			color: black;
+		}
+		.loc1_message_text_div {
+			margin-top: 58px;
+			margin-left: 40px;
+			margin-right: 30px;
+		}
+		.loc1_message_textLose {
+			color: black;
+		}
+		.loc1_message_textLose_div {
+			margin-top: 58px;
+			margin-left: 40px;
+			margin-right: 30px;
+			display: none;
+		}
+		.loc1_message_textWin {
+			color: black;
+		}	
+		.loc1_message_textWin_div {
+			margin-top: 58px;
+			margin-left: 40px;
+			margin-right: 30px;
+			display: none;
+		}
+
+		.sword {
+			width: 130px; border: white 2px solid; display: none
+		}
+
+		.nojni {
+			width: 130px; border: white 2px solid; display: none
+		}
+		.shield {
+			width: 130px; border: white 2px solid; display: none
+		}
+	</style>
+</head>
+<body style="background-image:url(bg1.png); background-size: cover">
+	<div class="main">
+		<div class="sword">
+			<img src="sword.png">
+		</div>
+		<div class="nojni">
+			<img src="nojni.png">
+		</div>
+		<div class="shield">
+			<img src="shield.png">
+		</div>
+		
+		<div  class="school">
+			<img src="school.png" alt="">
+		</div>
+		<div  class="mastery"> 
+			<img src="masterskaya.png" alt="">
+		</div>
+		<div  class="arena"> 
+			<img src="arena.png" alt="">
+		</div>
+		<img src="player.png" alt="" class="main_player">
+	</div>
+	
+	<div class="location3" style="display: none">
+		<div class="loc3_enemy">
+			<h1 class="loc3_enemy_h1">100</h1>
+			<div class="loc3_enemy_hp loc3_hp bg-success rounded border"></div>
+			<img src="loc3/enemy.png" alt="">
+		</div>
+		
+		<div class="loc3_player">
+			<div>
+				<h1 class="loc3_player_h1"></h1>
+				<div class="loc3_player_hp loc3_hp bg-success rounded border"></div>
+				<img src="loc3/player.png">
+			</div>		
+			<div class="bg-warning rounded">
+				<p class="mt-2">Нанеси урон</p>
+				<img src="loc3/sword.png" alt="" class="loc3_sword">
+				<img src="loc3/kulak.png" alt="" class="loc3_hit">
+			</div>
+								
+		</div>
+	</div>
+	<div class="location2" style="display: none">
+		<h6 class="text-light loc2_timeSize">Время: <span class="loc2_timeText">10</span></h6>
+
+		<div class="mx-auto col-3 ">
+			<img src="Loc2/doska.png" style="position: absolute; width: 300px" >
+			<h4 class="p-2 pl-4 text-white" style="position: absolute; width: 300px">Что нужно чтобы выковать меч?</h4>
+		</div>
+		<div class="loc2_teacher"></div>
+
+
+			<div style="position: absolute; margin-top: 17%; margin-left: 25%">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute;">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute; margin-left: 220px">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute; margin-left: 440px">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute; margin-left: 660px">			
+			</div>
+			<div style="position: absolute; margin-top: 25%; margin-left: 25%">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute;">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute;margin-left: 220px">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute;margin-left: 440px">
+				<img src="Loc2/stol.png" style="width: 200px; position: absolute;margin-left: 660px">			
+			</div>
+		<div class="loc2_ques" style="margin-left: 2%; position: absolute;  margin-top: 25%;">
+			 
+			 
+		 </div>
+		<div  style="display: flex; display: none; position: absolute; margin-top: 30%; margin-left: 2%" class="shp">
+			 <div class="loc2_shpors">Шпора 1: Мясо</div>
+			 <div class="loc2_shpors" style="margin-left: 150px;">Шпора 2: Серебро</div>
+			 <div class="loc2_shpors" style="margin-left: 300px; ">Шпора 3: Алмаз</div>
+			 <div class="loc2_shpors" style="margin-top: 140px; ">Шпора 4: Золото</div>
+			 <div class="loc2_shpors" style="margin-top: 140px; margin-left: 150px;">Шпора 5: Олово</div>
+			 <div class="loc2_pravilno" style="margin-top: 140px; margin-left: 300px;">Шпора 6: Железная руда</div>
+		</div>
+
+
+		<img src="Loc2/player_fall.png" class="loc2_player">
+
+		<img src="Loc2/talk.png" class="loc2_talk">
+		<h5 class="loc2_talkText" >Ответь на вопрос который на доске. У тебя мало времени</h5>
+
+	</div>
+	<div class="location1" style="display: none">	
+		
+		<!-- комната -->
+		<div class="loc1_game1">
+			<!-- спан для времени -->
+			<h4>Время: <span class="loc1_timeTxt"></span></h4>
+			<!-- спан для счета -->
+			<h4>Счёт: <span class="loc1_scoreTxt"></span></h4>
+			<!-- кузнец -->
+			<div class="loc1_kuznec">	
+			</div>
+			<!-- наковальня -->
+			<div class="loc1_nakovalya">	
+			</div>
+			<!-- плеер -->
+			<div class="loc1_player">	
+			</div>
+			<!-- сообщение -->
+			<div class="loc1_message">
+				<div class="loc1_message_text_div">
+					<p class="loc1_message_text">Успей нажать на наковальню 20 раз за 10 секунд, чтобы создать мечь!</p>
+				</div>
+				<div class="loc1_message_textLose_div">
+					<p class="loc1_message_textLose">Вы не смогли, попробуйте ещё, перезагрузите страницу</p>
+				</div>
+				<div class="loc1_message_textWin_div">
+					<p class="loc1_message_textWin">Ого! Отлично, у вас получилось!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		let way = 0;
+		let waySword = 0;
+
+		let body = document.querySelector("body");
+		let main = document.querySelector(".main");
+		let main_player = document.querySelector(".main_player");
+		let loc1_player = document.querySelector(".loc1_player");
+
+		let mastery = document.querySelector(".mastery");
+		let location1 = document.querySelector(".location1");
+		let loc1_kuznec = document.querySelector(".loc1_kuznec");
+		let loc1_nakovalya = document.querySelector(".loc1_nakovalya");
+		let loc1_message = document.querySelector(".loc1_message");
+		let loc1_message_textLose = document.querySelector(".loc1_message_textLose");
+		let loc1_message_textWin = document.querySelector(".loc1_message_textWin");
+		let loc1_timeTxt = document.querySelector(".loc1_timeTxt");
+		let loc1_scoreTxt = document.querySelector(".loc1_scoreTxt");
+		let time = 10;
+		loc1_timeTxt.innerHTML = time;
+		let score = 0;
+		loc1_scoreTxt.innerHTML = score;
+		let sword = document.querySelector(".sword");
+		let nojni = document.querySelector(".nojni");
+		let shield = document.querySelector(".shield");
+		mastery.onclick = function(){
+			main_player.style.left = "40%";
+			main_player.style.top = "60%";
+			function show(){
+				main.style.display = "none";
+				body.style.backgroundImage = "url(loc1/bg.png)";
+				location1.style.display = "block";
+			}
+			setTimeout(show, 900);
+			loc1_nakovalya.onclick = function(){
+				loc1_message.style.display = "block";
+				function loc1_time(){
+					time = time - 1;
+					if(time <= 10){
+						loc1_timeTxt.innerHTML = time;
+					}
+					if(time == 0){
+						time = 15;
+						if(time <= 10){
+							loc1_timeTxt.innerHTML = time;
+						}
+						score = 0;
+						loc1_scoreTxt.innerHTML = score;
+						alert("Вы не смогли!");
+						loc1_message.style.display = "none";
+					};
+				};
+				var loc1 = setInterval(loc1_time, 1000);
+				loc1_nakovalya.onclick = function(){
+					score = score + 1;
+					loc1_scoreTxt.innerHTML = score;
+					if(score == 20){
+						clearInterval(loc1);
+						function show(){
+							sword.style.display = "block";
+							location1.style.display = "none";
+							body.style.backgroundImage = "url(bg1.png)";
+							main.style.display = "block";
+							alert("You get the sword");
+							waySword = waySword + 1;
+						};
+						setTimeout(show, 2500);
+						alert("Вы смогли!");
+						loc1_message_text_div.style.display = "none";
+						loc1_message_textWin_div.style.display = "block";
+						time = 10;
+					};
+				}
+			}
+		}
+
+
+
+
+
+		let school = document.querySelector(".school");
+		let location2 = document.querySelector(".location2");
+		let loc2_teacher = document.querySelector(".loc2_teacher");
+		let shp = document.querySelector(".shp");
+		let loc2_timeText = document.querySelector(".loc2_timeText");
+		let loc2_shpors = document.querySelectorAll(".loc2_shpors");
+		let loc2_pravilno = document.querySelector(".loc2_pravilno");
+		let loc2_talk = document.querySelector(".loc2_talk");
+		let loc2_talkText = document.querySelector('.loc2_talkText');
+		loc2_teacher.style.backgroundImage = "url(loc2/female_stand.png)";
+		school.onclick = function(){
+			main_player.style.left = "70%";
+			main_player.style.top = "20%";
+			function show(){
+				main.style.display = "none";
+				body.style.backgroundImage = "";
+				body.style.backgroundColor = "green";
+				location2.style.display = "block";
+				loc2_teacher.onclick = function(){
+					loc2_talk.style.display = "block";
+					loc2_talkText.style.display = "block";
+					time = 10;
+					loc2_timeText.innerHTML = time;
+					loc2_teacher.style.backgroundImage = "url(loc2/female_back.png)";
+					shp.style.display = "block";
+					function timer(){
+						time = time - 1;
+						loc2_timeText.innerHTML = time;
+						if(time == 0){
+							alert("Вопрос провален");
+							clearInterval(loc2);
+							loc2_teacher.style.backgroundImage = "url(loc2/female_stand.png)";
+							time = 10;
+							loc2_timeText.innerHTML = time;
+							shp.style.display = "none";
+							loc2_talk.style.display = "none";
+							loc2_talkText.style.display = "none";
+						};
+						for(i=0; i<5; i++){
+							loc2_shpors[i].onclick = function(){
+								alert("Incorrect");
+								loc2_shpors[i].style.backgroundColor = "red";
+							};
+						};
+						loc2_pravilno.onclick = function(){
+							shp.style.display = "none";
+							alert("Correct answer");
+							clearInterval(loc2);
+							loc2_teacher.style.backgroundImage = "url(loc2/female_stand.png)";
+							loc2_talk.style.display = "none";
+							loc2_talkText.style.display = "none";
+							function back(){
+								nojni.style.display = "block";
+								main_player.style.left = "70%";
+								main_player.style.top = "20%";
+								main.style.display = "block";
+								body.style.backgroundImage = "url(bg1.png)";
+								body.style.backgroundColor = "";
+								location2.style.display = "none";
+								time = 10;
+								alert("You get the nojni");
+								way = way + 1;
+							};
+							setTimeout(back, 1800);
+						};
+					};
+					var loc2 = setInterval(timer, 1000);
+					
+				};
+			};
+			setTimeout(show, 900);
+		};
+
+
+		let arena = document.querySelector(".arena");
+		let location3 = document.querySelector(".location3");
+		let loc3_enemy_h1 = document.querySelector(".loc3_enemy_h1");
+		let loc3_player_h1 = document.querySelector(".loc3_player_h1");
+		let health = 100;
+		let enemyHealth = 100;
+		loc3_player_h1.innerHTML = health;
+		loc3_enemy_h1.innerHTML = enemyHealth;
+		let loc3_player_hp = document.querySelector(".loc3_player_hp");
+		let loc3_enemy_hp = document.querySelector(".loc3_enemy_hp");
+		let loc3_sword = document.querySelector(".loc3_sword");
+		let loc3_hit = document.querySelector(".loc3_hit");
+		let loc3_player = document.querySelector(".loc3_player");
+		let loc3_enemy = document.querySelector(".loc3_enemy");
+
+		arena.onclick = function(){
+			if(waySword == 1){
+				if(way == 1){
+					health = health + 20;
+					loc3_player_h1.innerHTML = health;
+				}
+				main_player.style.left = "30%";
+				main_player.style.top = "20%";
+				function show(){
+					main.style.display = "none";
+					body.style.backgroundImage = "url(loc3/arena.png)";
+					location3.style.display = "block";
+
+					loc3_sword.onclick = function(){
+						enemyHealth = enemyHealth - 10;
+						loc3_enemy_h1.innerHTML = enemyHealth;
+						loc3_sword.onclick = function(){
+							enemyHealth = enemyHealth - 10;
+							loc3_enemy_h1.innerHTML = enemyHealth;
+							if(enemyHealth == 0){
+								clearInterval(loc3);
+								loc3_enemy.style.display = "none";
+								alert("You win")
+								function winScreen(){
+									location3.style.display = "none";
+									loc3_player.style.display = "none";
+									body.style.backgroundImage = "url(win.png)";
+								};
+								setTimeout(winScreen, 1100);
+							};
+						};
+						function enemyAttack(){
+							health = health - 20;
+							loc3_player_h1.innerHTML = health;
+							if(health == 0){
+								clearInterval(loc3);
+								loc3_player.style.display = "none";
+								alert("You lose");
+							};
+						};
+						var loc3 = setInterval(enemyAttack, 600);
+					};
+
+				};
+				setTimeout(show, 900);
+			};
+			if(waySword == 0){
+				alert("Получите меч");
+			};	
+		};		
+	</script>
+	
+</body>
+</html>
